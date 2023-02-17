@@ -30,6 +30,7 @@ class PolyTreeNode
     end
 
     def dfs(target_value)
+        #recursive
         return self if self.value == target_value
 
         self.children.each do | child |
@@ -40,7 +41,7 @@ class PolyTreeNode
     end
 
     def bfs(target_value)
-
+        #iterative
         queue = [self]
 
         until queue.empty?
