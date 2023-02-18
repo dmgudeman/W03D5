@@ -16,12 +16,12 @@ class KnightPathFinder
         moves = moves_dict.select{ |move| move.all? {|coord| coord >= 0 && coord < 8} }  
         moves
     end
-    attr_reader :considered_pos
+    attr_reader :considered_pos, :root_node
     def initialize(start_pos)
         @start_pos = start_pos
         @considered_pos = [start_pos]
         @root_node = PolyTreeNode.new(start_pos)
-        # build_move_tree(@root_node)
+        build_move_tree
     end
 
     def new_move_positions(pos)
@@ -29,17 +29,30 @@ class KnightPathFinder
         valid_moves.select {|move| !considered_pos.include?(move)} 
     end
 
-    def build_move_tree(new_node)
+    def build_move_tree
+        queue = [self.root_node]
 
+        until queue.empty?
+            new_node = queue.shift
+            valid_moves = new_move_positions(new_node.value)
+            valid_moves.each do |move|
+                move_node = KnightPathFinder.new(move)
+                move_node.root_node.parent = new_node
+                new_node.add_child(move_node)
+                queue << move_node
+            end
+        end
+            # return node if node.value == target_value
+            # node.children.each {|child| queue << child}
 
     end
 end
 
-knight = KnightPathFinder.new([4,4])
+p knight = KnightPathFinder.new([4,4])
 
 
-p knight.new_move_positions([5,6])
+# p knight.new_move_positions([5,6])
 
-knight.considered_pos << [7,5]
+# knight.considered_pos << [7,5]
 
-p knight.new_move_positions([5,6])
+# p knight.new_move_positions([5,6])
