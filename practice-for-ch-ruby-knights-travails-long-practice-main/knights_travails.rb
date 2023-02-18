@@ -36,8 +36,10 @@ class KnightPathFinder
             new_node = queue.shift
             valid_moves = new_move_positions(new_node.value)
             valid_moves.each do |move|
-                move_node = KnightPathFinder.new(move)
-                move_node.root_node.parent = new_node
+                considered_pos << move
+                move_node = PolyTreeNode.new(move)
+               
+                move_node.parent = new_node
                 new_node.add_child(move_node)
                 queue << move_node
             end
