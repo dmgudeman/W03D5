@@ -38,7 +38,6 @@ class KnightPathFinder
             valid_moves.each do |move|
                 considered_pos << move
                 move_node = PolyTreeNode.new(move)
-               
                 move_node.parent = new_node
                 new_node.add_child(move_node)
                 queue << move_node
