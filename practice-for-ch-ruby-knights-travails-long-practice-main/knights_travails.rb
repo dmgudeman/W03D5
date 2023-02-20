@@ -45,11 +45,29 @@ class KnightPathFinder
         end
             # return node if node.value == target_value
             # node.children.each {|child| queue << child}
+  
+    end
 
+    def find_path(end_pos)
+
+        @root_node.dfs(end_pos)
+        # prc ||= Proc.new{|node| node.value == end_pos}
+        # return self if prc.call(self)
+
+        # start_node.children.each do | child |
+        #     result = find_path(child, end_pos, &prc) 
+        #     return result unless result.nil?
+        # end
+        # nil
     end
 end
 
-p knight = KnightPathFinder.new([4,4])
+
+knight = KnightPathFinder.new([4,4])
+
+p knight.find_path([5,6])
+
+
 
 
 # p knight.new_move_positions([5,6])
